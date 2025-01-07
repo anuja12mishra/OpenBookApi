@@ -118,3 +118,68 @@ searchInput.addEventListener("keypress", (event) => {
         triggerSearch();
     }
 });
+
+// ... existing code ...
+
+function displayBooks(totalItems) {
+    resultContainer.innerHTML = "";
+    booksData.forEach((book) => {
+        const volumeInfo = book.volumeInfo;
+        const bookCover = volumeInfo.imageLinks
+            ? volumeInfo.imageLinks.thumbnail
+            : "https://via.placeholder.com/150x200?text=No+Image";
+        const bookElement = document.createElement("div");
+        bookElement.className = "book-card";
+        bookElement.innerHTML = `
+            <img src="${bookCover}" alt="Book Cover">
+            <h3>${volumeInfo.title}</h3>
+            <p>${volumeInfo.authors ? volumeInfo.authors.join(", ") : "Unknown Author"}</p>
+        `;
+        bookElement.addEventListener("click", () => showBookDetails(volumeInfo));
+        resultContainer.appendChild(bookElement);
+    });
+
+    const maxPagesToShow = 5;
+    displayPagination(totalItems, maxPagesToShow);
+}
+
+function showBookDetails(bookInfo) {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="book-details">
+                <img src="${bookInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/150x200?text=No+Image'}" alt="Book Cover">
+                <div class="book-info">
+                    <h2>${bookInfo.title}</h2>
+                    <p><strong>Author(s):</strong> ${bookInfo.authors?.join(", ") || "Unknown"}</p>
+                    <p><strong>Published:</strong> ${bookInfo.publishedDate || "N/A"}</p>
+                    <p><strong>Publisher:</strong> ${bookInfo.publisher || "N/A"}</p>
+                    <p><strong>Categories:</strong> ${bookInfo.categories?.join(", ") || "N/A"}</p>
+                    <p><strong>Page Count:</strong> ${bookInfo.pageCount || "N/A"}</p>
+                    <p><strong>Language:</strong> ${bookInfo.language?.toUpperCase() || "N/A"}</p>
+                    <div class="description">
+                        <strong>Description:</strong>
+                        <p>${bookInfo.description || "No description available."}</p>
+                    </div>
+                    ${bookInfo.previewLink ? `<a href="${bookInfo.previewLink}" target="_blank" class="preview-button">Preview Book</a>` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.style.display = "flex";
+
+    const closeBtn = modal.querySelector(".close");
+    closeBtn.onclick = () => {
+        modal.remove();
+    };
+
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    };
+}
