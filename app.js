@@ -5,7 +5,7 @@ const paginationContainer = document.getElementById("pagination");
 const loadingSpinner = document.getElementById("loading-spinner");
 
 let currentPage = 1;
-let booksPerPage = 16;
+let booksPerPage = 20;
 let booksData = [];
 
 function showSpinner() {
