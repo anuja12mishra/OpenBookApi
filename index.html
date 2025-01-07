@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search App</title>
+    <link rel="icon" type="image/x-icon" href="image\icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Book Search</h1>
+    </div>
+    <div id="loading-spinner" class="spinner hidden"></div>
+    <div class="container">
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Search books by title or author" 
+                aria-label="Search books by title or author"
+            >
+            <button id="search-button" title="Search for books">Search</button>
+        </div>
+
+        <div class="results" id="results"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

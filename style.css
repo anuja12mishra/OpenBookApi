@@ -1,0 +1,231 @@
+/* Base styles */
+:root {
+    --primary-color: #333;
+    --accent-color: #555;
+    --background-color: #f4f4f4;
+    --card-background: #fff;
+    --text-color: #333;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+body {
+    font-family: 'Gill Sans', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('image/image.png') no-repeat center center/cover;
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin: 0;
+    text-align: center;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 90%;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+.search-bar button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: #fff;
+    transition: var(--transition);
+}
+
+.search-bar button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Results Grid */
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+    align-items: stretch;
+}
+/* Add this after the .results styles */
+.results p {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin: 2rem 0;
+}
+.book-card {
+    background: var(--card-background);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 300px;
+}
+
+.book-card img {
+    width: auto;
+    height: 200px;
+    max-width: 150px;
+    border-radius: 8px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.book-card h3 {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    line-height: 1.4;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.book-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.pagination button {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: var(--card-background);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.pagination button.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+}
+
+.pagination button:hover:not(.active) {
+    background-color: #eee;
+}
+
+/* Loading Spinner */
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1000;
+}
+
+.spinner.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 0.5rem;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-bar button {
+        width: 100%;
+    }
+
+    .results {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .pagination button {
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        height: 25vh;
+    }
+
+    .results {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .book-card {
+        padding: 0.8rem;
+    }
+}
